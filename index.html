@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Usuario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f0f0;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      max-width: 300px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    input, button {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">Registro de Usuario</h2>
+
+  <form onsubmit="registrar(event)">
+    <input type="text" id="usuario" placeholder="Nombre de usuario" required>
+    <input type="password" id="clave" placeholder="Contraseña" required>
+    <button type="submit">Registrar</button>
+  </form>
+
+  <script>
+    function registrar(e) {
+      e.preventDefault();
+
+      const usuario = document.getElementById('usuario').value;
+      const clave = document.getElementById('clave').value;
+
+      fetch('https://script.google.com/macros/s/AKfycbwoHMkpWysnzuL4PWKb5-GKvSEBcVTCs6L7Tz6sIuOqcLsLDyHqDkD9EoCPOfe-CsAURQ/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ usuario, clave })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Usuario registrado con éxito: " + data.status);
+        document.getElementById('usuario').value = '';
+        document.getElementById('clave').value = '';
+      })
+      .catch(error => {
+        alert("Error al registrar: " + error);
+      });
+    }
+  </script>
+
+</body>
+</html>
